@@ -235,7 +235,7 @@ function TeamSetup({ handleSubmit }: TeamSetupProps) {
 						title="Create a New Team"
 						fields={[
 							{ name: 'teamName', label: 'Team Name' },
-							{ name: 'devpost', label: 'Devpost' },
+							{ name: 'devpost', label: 'Devpost URL' },
 						]}
 						submitText='Create Team'
 						onSubmit={formData => handleSubmit(formData, mutate)}
