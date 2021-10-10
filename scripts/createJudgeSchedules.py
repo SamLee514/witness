@@ -1,19 +1,18 @@
+import collections
+import itertools
+import math
+import os
+import pickle
 import random
 import statistics
-import collections
-import math
-import pickle
-import os
+import sys
 
-NUM_JUDGES = 15
-NUM_ROOMS = 5
-NUM_SESSIONS = 20
+NUM_TEAMS = 22
+NUM_JUDGES = 13
+NUM_ROOMS = 4
+NUM_SESSIONS = math.ceil(NUM_TEAMS / NUM_ROOMS)
 
-assert NUM_JUDGES == 15
-assert NUM_ROOMS == 5
-assert NUM_SESSIONS <= 21
-
-"""final = []
+final = []
 for triplet in itertools.combinations(range(NUM_JUDGES), 3):
     found = False
     for lists in final:
@@ -30,10 +29,12 @@ for triplet in itertools.combinations(range(NUM_JUDGES), 3):
 
 valid_final = []
 for triplets in final:
-    if len(triplets) == 5:
-        valid_final.append(triplets)"""
+    if len(triplets) == NUM_ROOMS:
+        valid_final.append(triplets)
 
-valid_final = [
+print(valid_final)
+
+"""valid_final = [
     [(0, 1, 2), (3, 4, 5), (6, 7, 8), (9, 10, 11), (12, 13, 14)],
     [(0, 1, 6), (2, 3, 7), (4, 5, 8), (9, 10, 12), (11, 13, 14)],
     [(0, 1, 10), (2, 3, 11), (4, 5, 12), (6, 7, 13), (8, 9, 14)],
@@ -55,7 +56,11 @@ valid_final = [
     [(0, 7, 14), (1, 8, 9), (2, 10, 11), (3, 4, 6), (5, 12, 13)],
     [(0, 8, 9), (1, 7, 14), (2, 10, 12), (3, 5, 6), (4, 11, 13)],
     [(0, 8, 10), (1, 9, 11), (2, 5, 7), (3, 6, 12), (4, 13, 14)],
-]
+]"""
+
+if len(valid_final) < NUM_SESSIONS:
+    print("ERROR: Not possible to satisfy all constraints")
+    sys.exit(1)
 
 
 def get_diffs(sol):
@@ -96,7 +101,7 @@ for _ in range(100):
         diff_value = diff_mean ** 2 + diff_var
         # if best_diff_var is None or diff_var < best_diff_var:
         # if best_diff_mean is None or diff_mean < best_diff_mean:
-        if best_diff_value is None or diff_value < best_diff_value:
+        if best_diff_value is None or diff_value < best_diff_value and diff_range <= 2:
             best_diff_mean = diff_mean
             best_diff_var = diff_var
             best_diff_range = diff_range
@@ -104,11 +109,10 @@ for _ in range(100):
             best_triplets = [session.copy() for session in sol]
             best_diffs = diffs
 
-
 print(best_triplets)
 print("Mean:", best_diff_mean)
 print("Std Dev:", math.sqrt(best_diff_var))
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-with open(f"{dir_path}/sol.dump", "wb") as f:
-    pickle.dump(best_triplets, f)
+# with open(f"{dir_path}/sol.dump", "wb") as f:
+#     pickle.dump(best_triplets, f)

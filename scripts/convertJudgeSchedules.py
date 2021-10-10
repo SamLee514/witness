@@ -11,26 +11,24 @@ with open(f"{dir_path}/teams.txt") as f:
     TEAMS = f.read().splitlines()
 
 JUDGES = [
-    "Your Mom",
-    "Your Dad",
-    "Your Brother",
-    "Your Sister",
-    "Your Uncle",
-    "Your Aunt",
-    "Your Mom's Sister",
-    "Your Dad's Stepson",
-    "Your Wife's Boyfriend",
-    "Your Wife's Boyfriend's Son",
-    "Your Grandmother",
-    "Your Grandmother's Boyfriend",
-    "Your Grandfather",
-    "Your Grandfather's Boyfriend",
-    "Your Grandfather's Son",
+    "Aleksandr Zakharov",
+    "hafiz",
+    "Gayathri Narasimham",
+    "Effat Farhana",
+    "Uttam Ghosh",
+    "Thilo Womelsdorf",
+    "Aniruddha Gokhale",
+    "Md Kamrul Hasan",
+    "John Beck",
+    "Douglas Schmidt",
+    "Robert McLaurine",
+    "Roman",
+    "Seth Strong",
 ]
 
-START_TIME = "Mon Jan 19 1970 15:48:07 GMT-0600"
-
 TZ_EXTRA = " (Central Standard Time)"
+START_TIME = "Sun Oct 10 2021 10:10:00 GMT-0500"
+
 TIME_DELTA_10 = timedelta(minutes=10)
 TIME_FMT = "%a %b %d %Y %H:%M:%S %Z%z"
 START_TIME = datetime.strptime(START_TIME, TIME_FMT)
@@ -38,7 +36,7 @@ START_TIME = datetime.strptime(START_TIME, TIME_FMT)
 
 fields = ["Time", "Zoom", "Judge1", "Judge2", "Judge3", "TeamName"]
 
-with open(f"{dir_path}/output.csv", "w", newline="") as f:
+with open(f"{dir_path}/output.csv", "w", newline="", encoding="utf8") as f:
     writer = csv.writer(f)
     writer.writerow(fields)
 
@@ -47,7 +45,7 @@ with open(f"{dir_path}/output.csv", "w", newline="") as f:
     done = False
     for session_num, session in enumerate(sessions):
         if session_num == len(sessions) // 2:
-            time += TIME_DELTA_10  # Add to account for the break
+            pass #time += TIME_DELTA_10  # Add to account for the break
         for i, triplet in enumerate(session):
             judge_names = [JUDGES[i] for i in triplet]
             if team_num >= len(TEAMS):
