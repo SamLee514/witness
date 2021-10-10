@@ -19,9 +19,12 @@ export default function Outline({ children, home, selectedKey }: OutlineProps) {
 	return (
 		<Layout className={styles.layout}>
 			<Header className={styles.header}>
-				<div className={styles.logo}>
-					<Image src="/vhlogo-white.svg" alt="VH Logo" width={36} height={36} />
-				</div>
+				<Link href="/">
+					<div className={styles.logo}>
+						<Image src="/vhlogo-white.svg" alt="VH Logo" width={36} height={36} />
+					</div>
+				</Link>
+				
 				<Menu theme="dark" mode="horizontal" selectedKeys={[selectedKey]}>
 					{userType && userType !== 'HACKER' && (
 						<Menu.Item key="dashboard">
