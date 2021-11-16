@@ -9,7 +9,7 @@
   outputs = { self, nixpkgs, utils, bp }:
     utils.lib.eachDefaultSystem (system:
       with import nixpkgs { inherit system; overlays = [ bp.overlay ]; }; {
-        defaultPackage = buildYarnPackage { src = ./.; };
+        defaultPackage = (buildYarnPackage { src = ./.; }).overrideAttrs (oA: { installPhase = oA.installPhase + "\n ln -s /tmp $out/.next"; });
       }
     );
 }
