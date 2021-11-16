@@ -1,5 +1,6 @@
 module.exports = {
 	reactStrictMode: true,
+	distDir: '/tmp/witness-cache',
 	async redirects() {
 		return [
 			{
