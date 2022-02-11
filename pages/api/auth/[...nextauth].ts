@@ -30,7 +30,7 @@ export default async function auth(req: any, res: any) {
 					// user is only defined on first sign in
 					const login = await User.findOne({ email: user.email });
 					console.log('user: ', user);
-					console.log('all users:', await User.find());
+					console.log('all users:', await User.find({}));
 					// read usertype from vaken db
 					console.log('HEY!');
 					console.log(login.userType);
