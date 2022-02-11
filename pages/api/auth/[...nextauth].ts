@@ -31,17 +31,27 @@ export default async function auth(req: any, res: any) {
 					const login = await User.findOne({ email: user.email });
 
 					// read usertype from vaken db
+					console.log('HEY!');
+					console.log(login.userType);
+					console.log('DONE!');
 					if (!login.userType) {
 						const vakenUser = await vakenLogin.findOne({ email: user.email }).lean();
 						if (vakenUser?.userType) login.userType = vakenUser.userType;
 						await login.save();
 					}
 
+					console.log('HEY TOKEN!');
+					console.log(token.userType);
+					console.log('DONE TOKEN');
+
 					token.userType = login.userType;
 				}
 				return token;
 			},
 			async session({ session, token }) {
+				console.log('HEY session!');
+				console.log(session.userType);
+				console.log('DONE session!');
 				if (!session.userType || !session.userID) {
 					session.userType = token.userType;
 					session.userID = token.sub;
